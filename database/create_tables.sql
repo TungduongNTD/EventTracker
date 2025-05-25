@@ -1,0 +1,32 @@
+-- Create events table
+CREATE TABLE events (
+    id BIGINT PRIMARY KEY AUTO_INCREMENT,
+    title VARCHAR(255) NOT NULL,
+    description TEXT,
+    start_time DATETIME NOT NULL,
+    end_time DATETIME NOT NULL,
+    location VARCHAR(255),
+    created_at DATETIME DEFAULT CURRENT_TIMESTAMP,
+    updated_at DATETIME DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
+);
+
+-- Create event_media table
+CREATE TABLE event_media (
+    id BIGINT PRIMARY KEY AUTO_INCREMENT,
+    event_id BIGINT NOT NULL,
+    type VARCHAR(50) NOT NULL,
+    url VARCHAR(255) NOT NULL,
+    description TEXT,
+    created_at DATETIME DEFAULT CURRENT_TIMESTAMP,
+    FOREIGN KEY (event_id) REFERENCES events(id) ON DELETE CASCADE
+);
+
+-- Create event_notes table
+CREATE TABLE event_notes (
+    id BIGINT PRIMARY KEY AUTO_INCREMENT,
+    event_id BIGINT NOT NULL,
+    content TEXT NOT NULL,
+    created_at DATETIME DEFAULT CURRENT_TIMESTAMP,
+    updated_at DATETIME DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+    FOREIGN KEY (event_id) REFERENCES events(id) ON DELETE CASCADE
+); 
